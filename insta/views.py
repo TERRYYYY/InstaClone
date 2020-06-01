@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http  import HttpResponse, Http404
 import datetime as dt
 from .models import Image,Profile,Comment
+from .forms import NewsLetterForm
+from django.http import HttpResponse, Http404,HttpResponseRedirect
 
 
 # Create your views here.
@@ -16,7 +18,17 @@ def post(request):
     date = dt.date.today()
     images=Image.objects.all()
     comments=Comment.objects.all()
-    return render(request, 'all-insta/post.html', {"date": date,"images": images, "comments":comments})
+    if request.method == 'POST':
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient = NewsLetterRecipients(name = name,email =email)
+            recipient.save()
+            HttpResponseRedirect('post')
+    else:
+        form = NewsLetterForm()
+    return render(request, 'all-insta/post.html', {"date": date,"images": images, "comments":comments,"letterForm":form})
 
 def search_images(request):
   if 'keyword' in request.GET and request.GET["keyword"]:

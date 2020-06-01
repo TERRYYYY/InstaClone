@@ -24,13 +24,12 @@ class Image(models.Model):
         images=cls.objects.get(id=image_id)
         return images
 
-    @classmethod
     # def search_by_user(cls,search_term):
     #     images = cls.objects.filter(user__icontains=search_term)
     #     return images
     @classmethod
     def search_images(cls, search_term):
-        images = cls.objects.filter(user__icontains=search_term)
+        images = cls.objects.filter(caption__icontains=search_term)
         return images
 
 class Profile(models.Model):
@@ -42,6 +41,11 @@ class Profile(models.Model):
         return self.bio
     class Meta:
         ordering = ['bio']
+    
+    @classmethod
+    def search_images(cls, search_term):
+        images = cls.objects.filter(user__icontains=search_term)
+        return images
 
     # def save_profile(self):
     # self.save()
