@@ -13,3 +13,12 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         exlcude = ['user']
         fields = ('bio', 'profile_photo')
+
+class ImageForm(forms.ModelForm):
+    '''
+    class to define image uploading form
+    '''
+    class Meta:
+        model = Image
+        exclude = ['likes', 'pub_date']
+        fields = ('image_name','caption', 'image_file')

@@ -5,7 +5,7 @@ from .models import Image,Profile,Comment
 from .forms import NewsLetterForm
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm
+from .forms import ProfileForm,ImageForm
 
 
 # Create your views here.
@@ -79,3 +79,17 @@ def profile(request,id):
         else:
             form = ProfileForm()
         return render(request, 'profile/create_profile.html',{"form":form})
+
+@login_required(login_url='/accounts/login/')  
+def new_post(request):
+    current_user = request.user
+    if request.method=='POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.profile = current_user.profile
+            image.save()
+            return redirect(home)
+    else:
+        form = ImageForm()
+    return render(request, 'all-insta/newpost.html',{"form":form})
