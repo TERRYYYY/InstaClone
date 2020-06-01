@@ -10,3 +10,7 @@ def welcome(request):
 def intro(request):
     date = dt.date.today()
     return render(request, 'all-insta/intro.html', {"date": date,})
+
+def post(request):
+    date = dt.date.today()
+    return render(request, 'all-insta/post.html', {"date": date,})
