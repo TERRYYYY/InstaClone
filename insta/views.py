@@ -14,6 +14,7 @@ def intro(request):
     date = dt.date.today()
     return render(request, 'all-insta/intro.html', {"date": date,})
 
+@login_required(login_url='/accounts/login/')
 def post(request):
     date = dt.date.today()
     images=Image.objects.all()
@@ -30,6 +31,7 @@ def post(request):
         form = NewsLetterForm()
     return render(request, 'all-insta/post.html', {"date": date,"images": images, "comments":comments,"letterForm":form})
 
+@login_required(login_url='/accounts/login/')
 def search_images(request):
   if 'keyword' in request.GET and request.GET["keyword"]:
     search_term = request.GET.get("keyword")
