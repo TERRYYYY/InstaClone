@@ -60,3 +60,7 @@ class Comment(models.Model):
         return self.comment
     class Meta:
         ordering = ['comment']
+
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()
