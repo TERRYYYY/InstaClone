@@ -17,3 +17,15 @@ def post(request):
     images=Image.objects.all()
     comments=Comment.objects.all()
     return render(request, 'all-insta/post.html', {"date": date,"images": images, "comments":comments})
+
+def search_images(request):
+  if 'keyword' in request.GET and request.GET["keyword"]:
+    search_term = request.GET.get("keyword")
+    searched_images = Image.search_images(search_term)
+    message = f"{search_term}"
+
+    return render(request, 'all-insta/search.html', {"message":message,"images": searched_images})
+
+  else:
+     message = "Not a search term"
+     return render(request, 'all-insta/search.html', {"message": message})

@@ -24,6 +24,15 @@ class Image(models.Model):
         images=cls.objects.get(id=image_id)
         return images
 
+    @classmethod
+    # def search_by_user(cls,search_term):
+    #     images = cls.objects.filter(user__icontains=search_term)
+    #     return images
+    @classmethod
+    def search_images(cls, search_term):
+        images = cls.objects.filter(user__icontains=search_term)
+        return images
+
 class Profile(models.Model):
     profile_photo = models.ImageField(upload_to='profile_pics/', blank=True, default='profile_pics/default.jpg')
     bio = models.TextField(default = '')

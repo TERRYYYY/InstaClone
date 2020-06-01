@@ -1,0 +1,25 @@
+{%extends 'all-insta/base.html'%}
+{% load bootstrap3 %}
+{% block content %}
+
+<div class="">
+
+    <div class="">
+        {% if images %}
+        <div class="jumbotron jumbotron-fluid bg-light">
+            <div class="">
+                <h2 class="display-6 text-center font-weight-bold text-dark">Found {{ images|length }} images for
+                    searched term {{message}}</h2>
+            </div>
+        </div>
+        {% else %}
+        <div class="jumbotron jumbotron-fluid bg-light">
+            <div class="">
+                <h2 class="display-5 text-center font-weight-bold text-dark">Found 0 images for the searched term
+                    {{message}}</h2>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
