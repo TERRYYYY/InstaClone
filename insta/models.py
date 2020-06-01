@@ -18,6 +18,11 @@ class Image(models.Model):
     
     def save_image(self):
         self.save()
+    
+    @classmethod
+    def get_image_by_id(cls,image_id):
+        images=cls.objects.get(id=image_id)
+        return images
 
 class Profile(models.Model):
     profile_photo = models.ImageField(upload_to='profile_pics/', blank=True, default='profile_pics/default.jpg')

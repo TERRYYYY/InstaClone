@@ -1,6 +1,28 @@
 {%extends 'all-insta/base.html'%}
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 {% block content %}
-<h2>This is what you will see if you login</h2>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+{% for image_item in images %}
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<div class="container">
+    <div class="card-header">
+        <img class="pl-2 pb-1 imagelay" src="{{image_item.image_file.url}}" height="500px" width="700px" style="margin-top: 60px;margin-left: 100px;">
+    </div>
+    <div class="card-body" style="margin-left: 80px;">
+        <p style="font-size: 30px;font-weight: 900;">{{image_item.likes}}<i class='fas fa-heart' style="font-size: 35px;margin-top: 20px;"></i></p>
+       
+        <h3 style="font-size: 26px;font-weight: 900;">@ {{image_item.user}}</h3>
+        <p style="font-size: 23px;">{{image_item.caption}}</p>
+
+        {% for comment_item in comments %}
+        <h3 style="margin-left: 100px;font-size: 22px;">View Comments:</h3>
+        <p style="font-size: 18px;">{{comment_item.comment}} <span style="font-size: 19px;font-weight: 900;"> @ {{comment_item.user}} </span></p>
+        {% endfor %}
+    
+    </div>
+</div>
+{% endfor %}
+
 {{block.super}}
 {% endblock %}
