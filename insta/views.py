@@ -11,7 +11,6 @@ from .forms import ProfileForm,ImageForm
 # Create your views here.
 # def welcome(request):
 #     return render(request, 'welcome.html')
-
 def intro(request):
     date = dt.date.today()
     return render(request, 'all-insta/intro.html', {"date": date,})
@@ -61,24 +60,21 @@ def create_profile(request):
     return render(request, 'profile/create_profile.html',{"form":form})
 
 @login_required(login_url='/accounts/login/')  
-def profile(request,id): 
-    try: 
-        current_user = request.user
-        profile = Profile.objects.filter(user_id=id).all()
-        images = Image.objects.filter(profile_id=current_user.profile.id).all()
-        return render(request, 'profile/profile.html', {"profile":profile, "images":images}) 
-    except User.profile.RelatedObjectDoesNotExist:
-        current_user = request.user
-        if request.method=="POST":
-            form = ProfileForm(request.POST,request.FILES)
-            if form.is_valid():
-                profile =form.save(commit=False)
-                profile.user = current_user
-                profile.save()
-                return render(request, 'profile/profile.html', {"profile":profile, "images":images}) 
-        else:
-            form = ProfileForm()
-        return render(request, 'profile/create_profile.html',{"form":form})
+def profile(request):
+  current_user = request.user
+  user = current_user
+  images = Image.get_by_user(user)
+
+  if request.method == 'POST':
+    form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+    if form.is_valid():
+      profile = form.save(commit=False)
+      profile.save()
+    return redirect('profile/profile.html')
+
+  else:
+    form = ProfileForm()
+  return render(request, 'profile/profile.html', {"form":form, "images":images})
 
 @login_required(login_url='/accounts/login/')  
 def new_post(request):

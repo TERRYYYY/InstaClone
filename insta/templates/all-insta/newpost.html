@@ -5,14 +5,14 @@
 {{block.super}}
 <div class="container">
     <div class="row">
-        <h1>POST A PHOTO</h1>
+        <h2 class="text-center" style="font-weight: bold;">POST A PHOTO</h1>
         <div class="col-md-12 mt-4 mx-auto">
 
             <form action="{%url 'new_post'%}" method="POST" enctype="multipart/form-data">
                 {%csrf_token%}
 
                 {% bootstrap_form form %}
-                <input type="submit" class="btn btn-primary btn-lg" value="Post Photo">
+                <input type="submit" class="btn btn-info" value="Post Photo" style="margin-left: 300px;">
             </form>
         </div>
     </div>

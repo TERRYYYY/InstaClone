@@ -1,40 +1,45 @@
-{% extends 'base.html' %}
+{% extends 'profile/base.html' %}
 {% load bootstrap3%}
 
-{%block content%}
-
-{{block.super}}
-
-<h1 class="text-center">YOUR PROFILE</h1>
-<div class="container">
+{% block content %}
+<div class="container mb-4 pb-4" style="height: 100%;">
     <div class="row">
-        {%for profile in profile%}
-        <div class="col-md-4">
-            <div class="card">
-                <img class="card-img-top" src="{{profile.profile_photo.url}}" alt="Card image cap">
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="card-">
-                <h2 class="card-title">{{profile.user.username}}</h2>
-                <h4 class="card-text">{{profile.bio}}</h4>
-            </div>
-        </div>
-        {%endfor%}
-    </div>
-    <br>
-    <h2 class="text-center">YOUR IMAGES</h2>
-    <div class="row">
-        {%for image_item in images %}
-        <div class="col-md-4">
-            <img class="card-img-top" src="{{image_item.image_file.url}}">
-            <div class="card-body">
-                <h5 class="card-title">{{image_item.name}}</h5>
-                <p class="card-text">{{image_item.caption}}</p>
-            </div>
-        </div>
-        {%endfor%}
+        <!-- Empty div -->
+        <div class="col-lg-2"></div>
 
-    </div>
-</div>
+        <div class="col-lg-8 mt-4 pt-2 ">
+            <div class="pb-2">
+                {% if user.profile.photo %}
+                <img src="{{ user.profile.photo.url }}" alt=""
+                    class="d-flex justify-content-start rounded-circle mb-1 img-fluid mr-1" style="width: 150px;">
+                {% else %}
+                <img src="https://www.vippng.com/png/detail/202-2026524_person-icon-default-user-icon-png.png" alt=""
+                    class="d-flex justify-content-start rounded-circle mb-1 img-fluid mr-1" style="width: 150px;">
+                {% endif %}
+                <h3 style="font-size: 25px;"> <span class="font-weight-bold" style="font-size: 29px;" > Username:</span> @ {{user.username}} </h3>
+                <br>
+                <p> <span class="font-weight-bold"> Email:</span> {{user.email}} </p>
+                <p> <span class="font-weight-bold"> Bio:</span> {{ user.profile.bio}} </p>
+                <button class="btn btn-info" ><a href="{%url 'create_profile'%}"></a> Edit Profile </button>
+            </div>
+            <hr>
+            <br>
+            <h4 class="font-weight-bold" style="text-align: center;font-size: 37px;">My Photos</h4>
+            <hr>
+            {% if images %}
+            {% for image_item in images%}
+            <a href="/image/{{image_item.id}}"><img src="{{ image_item.image_file.url }}" alt=""
+                    class="rounded img-fluid mr-1" style="width: 200px;"></a>
+                    <br>
+                    <a href="{%url 'new_post'%}" class="btn btn-info">Create A New Post</a>
+            {% endfor %}
+
+            {% else %}
+            <h5>You have not uploaded any photos</p>
+            <a href="{%url 'new_post'%}" class="btn btn-info">Create A New Post</a>
+            {% endif %}
+
+        </div>
+
 {% endblock %}
+    

@@ -24,6 +24,10 @@ class Image(models.Model):
     def get_image_by_id(cls,image_id):
         images=cls.objects.get(id=image_id)
         return images
+    @classmethod
+    def get_by_user(cls, user):
+        images = cls.objects.filter(user=user)
+        return images
 
     # def search_by_user(cls,search_term):
     #     images = cls.objects.filter(user__icontains=search_term)

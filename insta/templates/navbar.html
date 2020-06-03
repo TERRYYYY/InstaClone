@@ -12,13 +12,12 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="{% url 'intro' %}" style="color: blue;font-size: 40px;font-weight: bolder;">InstaClone</a>
             </div>
-
             <div class="col-sm-6 col-md-6">
                 {% if user.is_authenticated %}
                 <ul>
-                    <li class="dropdown">
+                    <li class="dropdown" style="margin-left: 250px;">
                         <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Account
+                            aria-expanded="false" style="margin-right: 250px;">Account
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -26,7 +25,7 @@
                                 <a href="{%url 'post'%}">Home</a>
                             </li>
                             <li>
-                                <a href="{%url 'new-post'%}">Create A New Post</a>
+                                <a href="{%url 'new_post'%}">Create A New Post</a>
                             </li>
                             <li>
                                 <a href="/accounts/password/change">Change Password</a>
@@ -44,6 +43,8 @@
             
                 {% endif %}
             </div>
+
+            
             <!-- Adding a search form  -->
             <div class="col-sm-4 col-md-4 navbar-right">
             
@@ -59,6 +60,7 @@
                 </form>
             </div>
             <!-- search form end -->
+            
         </div>
     </nav>
 </body>

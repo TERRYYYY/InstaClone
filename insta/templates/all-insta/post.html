@@ -8,7 +8,7 @@
 {% for image_item in images %}
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <div class="container">
-    <div class="card-header">
+    <div class="col-md-12">
         <img class="pl-2 pb-1 imagelay" src="{{image_item.image_file.url}}" height="500px" width="700px" style="margin-top: 60px;margin-left: 100px;">
     </div>
     <div class="card-body" style="margin-left: 80px;">
@@ -17,11 +17,11 @@
         <h3 style="font-size: 26px;font-weight: 900;">@ {{image_item.user}}</h3>
         <div class="row">
             {% autoescape on %}
-            {{article.post| safe}}
+            <p style="font-size: 23px;">{{image_item.caption| safe}}</p>
             {% endautoescape %}
         
         </div>
-        <p style="font-size: 23px;">{{image_item.caption}}</p>
+        <!-- <p style="font-size: 23px;">{{image_item.caption}}</p> -->
 
         {% for comment_item in comments %}
         <h3 style="margin-left: 100px;font-size: 22px;">View Comments:</h3>
@@ -30,20 +30,19 @@
     
     </div>
 
-
-    <div class="container-fluid">
-    
-        <form action="{%url 'post'%}" method="POST">
-            {%csrf_token%}
-    
-            {% bootstrap_form letterForm layout='inline' %}
-            <input type="submit" value="Subscribe" class="btn btn-info btn-lg">
-        </form>
-    
-    </div>
-
 </div>
 {% endfor %}
+<div class="container-fluid" style="margin-top: 50px;">
+
+    <form action="{%url 'post'%}" method="POST">
+        {%csrf_token%}
+
+        {% bootstrap_form letterForm layout='inline' %}
+        <input type="submit" value="Subscribe" class="btn btn-info btn-lg">
+    </form>
+
+</div>
+
 
 {{block.super}}
 {% endblock %}
